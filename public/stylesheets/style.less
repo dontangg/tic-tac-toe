@@ -2,5 +2,32 @@
   width: 25%;
 }
 
-a {
+.board {
+  font-size: 50px;
+  margin-top: 20px;
+
+  td {
+    cursor: default;
+    height: 100px;
+    padding: 10px;
+    text-align: center;
+    width: 100px;
+  }
+  &.your-turn td {
+    &.empty {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  td + td {
+    border-left: 4px solid #000;
+  }
+  tr + tr {
+    border-top: 4px solid #000;
+  }
 }
+

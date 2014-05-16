@@ -4,9 +4,9 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/games');
+var fs = require('fs');
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/games', users);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,6 +66,20 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+// Setup the in-memory database
+var dbName = 'database.sqlite3';
+fs.exists(dbName, function(exists) {
+  if (exists) return;
+
+  var sqlite3 = require('sqlite3');
+  var db = new sqlite3.Database(dbName);
+
+  db.run("CREATE TABLE games (id INTEGER PRIMARY KEY AUTOINCREMENT, xName TEXT, oName TEXT, data TEXT)");
+  db.close();
+});
+
 
 
 module.exports = app;

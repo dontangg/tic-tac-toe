@@ -1,0 +1,23 @@
+
+<h1>{{title}}</h1>
+
+<div class="list-group">
+  {{#games}}
+    <a href="/games/{{id}}" class="list-group-item">
+      <h4>
+        {{#oName}}
+          {{xName}} vs {{oName}}
+        {{/oName}}
+        {{^oName}}
+          {{xName}} is waiting for an opponent
+        {{/oName}}
+      </h4>
+    </a>
+  {{/games}}
+  {{^games}}
+    No games started yet
+  {{/games}}
+</div>
+
+<a class='btn btn-primary' href="/games/new">Start Game</a>
+

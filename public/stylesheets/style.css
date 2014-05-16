@@ -1,1 +1,1 @@
-.width-25p{width:25%}
+.width-25p{width:25%}.board{font-size:50px;margin-top:20px}.board td{cursor:default;height:100px;padding:10px;text-align:center;width:100px}.board.your-turn td.empty{cursor:pointer}.board.your-turn td.empty:hover{background-color:#ddd}.board td+td{border-left:4px solid #000}.board tr+tr{border-top:4px solid #000}

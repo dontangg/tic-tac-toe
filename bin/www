@@ -2,8 +2,32 @@
 var debug = require('debug')('tic-tac-toe');
 var app = require('../app');
 
+var sqlite3 = require('sqlite3');
+
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+});
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  socket.on('mark', function (data) {
+    io.sockets.emit('mark', data);
+    console.log(data);
+
+    var gameId = data.id;
+
+    var db = new sqlite3.Database('database.sqlite3');
+    db.get("SELECT * FROM games WHERE id = ?", gameId, function(err, row) {
+      var mark = row.xName == data.name ? 'X' : 'O';
+      var gameData = row.data ? JSON.parse(row.data) : [];
+      gameData[data.placement] = mark;
+
+      db.run("UPDATE games SET data = ? WHERE id = ?", JSON.stringify(gameData), gameId, function (err) {
+        if (err) console.log(err);
+      });
+    });
+  });
 });

@@ -48,10 +48,36 @@ router.get('/:id', function(req, res) {
       });
     }
 
+    var gameData = row.data ? JSON.parse(row.data) : [];
+
+    var count = 0;
+    // TODO: Can I use underscore for this?
+    for (var i = 0; i < gameData; i++) {
+      if (gameData[i]) count++;
+    }
+
+    
+    var yourTurn = false;
+    
+    if (row.xName == myName)
+      yourTurn = count % 2 == 0;
+    else if (row.oName == myName)
+      yourTurn = count % 2 == 1;
+
     res.render('game', {
       title: 'Playing Game',
       xName: row.xName,
-      oName: row.oName
+      oName: row.oName,
+      yourTurn: yourTurn,
+      p0: gameData[0],
+      p1: gameData[1],
+      p2: gameData[2],
+      p3: gameData[3],
+      p4: gameData[4],
+      p5: gameData[5],
+      p6: gameData[6],
+      p7: gameData[7],
+      p8: gameData[8],
     });
   });
 

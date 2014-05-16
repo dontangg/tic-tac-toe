@@ -1,22 +1,24 @@
-<h1>{{xName}} vs <span id='oName'>{{oName}}</span></h1>
+<h1><span id='xName'>{{xName}}</span> vs <span id='oName'>{{oName}}</span></h1>
 
 <a href="/games">Back to game list</a>
 
-
-<table class='board your-turn'>
+<table id='board' class='board{{#yourTurn}} your-turn{{/yourTurn}}'>
   <tr>
-    <td>O</td>
-    <td class='empty'></td>
-    <td>O</td>
+    <td id='p0'{{^p0}} class='empty'{{/p0}}>{{p0}}</td>
+    <td id='p1'{{^p1}} class='empty'{{/p1}}>{{p1}}</td>
+    <td id='p2'{{^p2}} class='empty'{{/p2}}>{{p2}}</td>
   </tr>
   <tr>
-    <td>X</td>
-    <td>X</td>
-    <td>X</td>
+    <td id='p3'{{^p3}} class='empty'{{/p3}}>{{p3}}</td>
+    <td id='p4'{{^p4}} class='empty'{{/p4}}>{{p4}}</td>
+    <td id='p5'{{^p5}} class='empty'{{/p5}}>{{p5}}</td>
   </tr>
   <tr>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td id='p6'{{^p6}} class='empty'{{/p6}}>{{p6}}</td>
+    <td id='p7'{{^p7}} class='empty'{{/p7}}>{{p7}}</td>
+    <td id='p8'{{^p8}} class='empty'{{/p8}}>{{p8}}</td>
   </tr>
 </table>
+
+<script src="/javascripts/game.js"></script>
+

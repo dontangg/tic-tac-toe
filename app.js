@@ -24,6 +24,15 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Setup sign in
+app.use(function(req, res, next) {
+  if (req.path != '/sign_in' && !req.cookies.name) {
+    res.redirect('/sign_in');
+  } else {
+    next();
+  }
+});
+
 app.use('/', routes);
 app.use('/users', users);
 

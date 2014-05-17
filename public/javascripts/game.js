@@ -1,6 +1,6 @@
 var name = document.cookie.replace("name=", "");
 
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('/');
 socket.on('mark', function (data) {
   console.log(data);
 

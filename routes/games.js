@@ -36,6 +36,10 @@ router.get('/:id', function(req, res) {
 
   db.get("SELECT * FROM games WHERE id = ?", gameId, function(err, row) {
     if (err) throw err;
+    if (!row) {
+      res.status(404).send('Not found');
+      return;
+    }
 
     var myName = req.cookies.name;
 
@@ -52,7 +56,7 @@ router.get('/:id', function(req, res) {
 
     var count = 0;
     // TODO: Can I use underscore for this?
-    for (var i = 0; i < gameData; i++) {
+    for (var i = 0; i < gameData.length; i++) {
       if (gameData[i]) count++;
     }
 

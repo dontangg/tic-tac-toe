@@ -70,15 +70,18 @@ app.use(function(err, req, res, next) {
 
 // Setup the in-memory database
 var dbName = 'database.sqlite3';
-fs.exists(dbName, function(exists) {
-  if (exists) return;
+var sqlite3 = require('sqlite3');
+var db = new sqlite3.Database(dbName);
 
-  var sqlite3 = require('sqlite3');
-  var db = new sqlite3.Database(dbName);
-
-  db.run("CREATE TABLE games (id INTEGER PRIMARY KEY AUTOINCREMENT, xName TEXT, oName TEXT, data TEXT)");
-  db.close();
+db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='games'", function(err, row) {
+  if (row) {
+    db.run("DELETE FROM games");
+  } else {
+    db.run("CREATE TABLE games (id INTEGER PRIMARY KEY AUTOINCREMENT, xName TEXT, oName TEXT, data TEXT)");
+  }
 });
+
+db.close();
 
 
 
